@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Orders Page</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f8f9fa;
+            color: #343a40;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            flex-direction: column;
+        }
+        .container {
+            width: 80%;
+            background-color: white;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+            overflow: hidden;
+        }
+        h1 {
+            text-align: center;
+            background-color: #343a40;
+            color: white;
+            padding: 20px;
+            margin: 0;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        th, td {
+            border: 1px solid #dee2e6;
+            padding: 16px;
+            text-align: left;
+        }
+        th {
+            background-color: #007bff;
+            color: white;
+        }
+        tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+        tr:hover {
+            background-color: #e9ecef;
+        }
+        select {
+            padding: 8px;
+            border-radius: 4px;
+            border: 1px solid #ced4da;
+            background-color: white;
+        }
+        .order-id {
+            font-weight: bold;
+            margin-bottom: 8px;
+        }
+        .products {
+            margin-bottom: 8px;
+        }
+    </style>
+    <script>
+        // function updateStatus(orderId, selectElement) {
+        //     const newStatus = selectElement.value;
+        //     fetch('https://api.example.com/updateOrderStatus', {
+        //         method: 'POST',
+        //         headers: {
+        //             'Content-Type': 'application/json',
+        //         },
+        //         body: JSON.stringify({
+        //             orderId: orderId,
+        //             status: newStatus
+        //         }),
+        //     })
+        //     .then(response => response.json())
+        //     .then(data => {
+        //         alert('Order status updated successfully');
+        //     })
+        //     .catch((error) => {
+        //         alert('Error updating order status:', error);
+        //     });
+        // }
+
+        function addOrderRow(orderId, customerName, products, status) {
+            const tbody = document.querySelector('tbody');
+            const tr = document.createElement('tr');
+
+            const orderCell = document.createElement('td');
+            orderCell.innerHTML = `<div class="order-id">Order ID: ${orderId}</div><div class="products">${products.map(product => `<div>- ${product}</div>`).join('')}</div>`;
+            tr.appendChild(orderCell);
+
+            const customerCell = document.createElement('td');
+            customerCell.textContent = customerName;
+            tr.appendChild(customerCell);
+
+            const statusCell = document.createElement('td');
+            const select = document.createElement('select');
+            const statuses = ['Order Placed', 'Shipped', 'In Transit', 'Out for Delivery', 'Delivered'];
+            statuses.forEach(s => {
+                const option = document.createElement('option');
+                option.value = s;
+                option.textContent = s.charAt(0).toUpperCase() + s.slice(1);
+                if (s === status) {
+                    option.selected = true;
+                }
+                select.appendChild(option);
+            });
+            select.onchange = () => updateStatus(orderId, select);
+            statusCell.appendChild(select);
+            tr.appendChild(statusCell);
+
+            tbody.appendChild(tr);
+        }
+
+        // Example of dynamically adding an order
+        window.onload = function() {
+            addOrderRow(12345, 'John Doe', ['Product 1', 'Product 2', 'Product 3'], 'order placed');
+            addOrderRow(12346, 'Jane Smith', ['Product A', 'Product B'], 'shipped');
+        };
+    </script>
+</head>
+<body>
+    <div class="container">
+        <h1>ALL ORDERS</h1>
+        <table>
+            <thead>
+                <tr>
+                    <th>Orders</th>
+                    <th>Customer</th>
+                    <th>Status</th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- Dynamic rows will be added here -->
+            </tbody>
+        </table>
+    </div>
+</body>
+</html>

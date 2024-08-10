@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Barcadly ECommerce</title>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <link rel="stylesheet" href="css/home.css">
+    <link rel="stylesheet" href="css/orders.css">
+</head>
+<body>
+    <div class="nav-bar">
+        <div>
+            <button id="navbtns" href="#" onclick="showHome()"><b>Home</b></button>
+        </div>
+        <div id="authlinks">
+            <button id="navbtns" href="#" onclick="showSignUp()"><b>Sign Up</b></button>
+            <button id="navbtns" href="#" onclick="showSignIn()"><b>Login</b></button>
+            <button id="navbtns" href="#" onclick="showCart()"><b>Cart</b></button>
+        </div>
+    </div>
+
+    <div id="home" class="container">
+        <h1>Products</h1>
+        <div class="products" id="products"></div>
+    </div>
+
+    <div id="signin" class="auth" style="display:none;">
+        <h1>Sign In</h1>
+        <form onsubmit="signIn(event)">
+            <input type="email" id="signin-email" name="email" placeholder="Email" required><br>
+            <input type="password" id="signin-password" name="password" placeholder="Password" required><br>
+            <button type="submit">Sign In</button>
+        </form>
+    </div>
+
+    <div id="signup" class="auth" style="display:none;">
+        <h1>Sign Up</h1>
+        <form onsubmit="signUp(event)">
+            <input type="text" name="username" id="signup-username" placeholder="Username" required><br>
+            <input type="email" name="email" id="signup-email" placeholder="Email" required><br>
+            <input type="password" name="password" id="signup-password" placeholder="Password" required><br>
+            <button type="submit">Sign Up</button>
+        </form>
+    </div>
+
+    <div id="cart" class="container" style="display:none;">
+        <h1>Cart</h1>
+        <div class="cart-items" id="cart-items"></div>
+        <button onclick="checkout()">Checkout</button>
+    </div>
+
+    <!-- Orders Section -->
+<div id="orders-section" style="display:none;">
+    <h2>Orders</h2>
+    <div id="orders-list"></div>
+</div>
+
+<!-- Modal Structure -->
+<div id="tracking-modal" class="modal">
+    <div class="modal-content">
+        <span class="close">&times;</span>
+        <h2>Track Order</h2>
+        <input type="hidden" name="orderId" id="orderId">
+        <div id="tracking-details">
+            <div class="tracking-step" data-status="Order Placed">
+                <div class="circle"></div>
+                <div class="line"></div>
+                <div class="status">Order Placed</div>
+            </div>
+            <div class="tracking-step" data-status="Shipped">
+                <div class="circle"></div>
+                <div class="line"></div>
+                <div class="status">Shipped</div>
+            </div>
+            <div class="tracking-step" data-status="In Transit">
+                <div class="circle"></div>
+                <div class="line"></div>
+                <div class="status">In Transit</div>
+            </div>
+            <div class="tracking-step" data-status="Out for Delivery">
+                <div class="circle"></div>
+                <div class="line"></div>
+                <div class="status">Out for Delivery</div>
+            </div>
+            <div class="tracking-step" data-status="Delivered">
+                <div class="circle"></div>
+                <div class="status">Delivered</div>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="/socket.io/socket.io.js"></script>
+<script src="js/home.js"></script>
+<script src="js/orders.js"></script>
+</body>
+</html>
